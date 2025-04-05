@@ -492,7 +492,7 @@ export function MediaUpload({ settings, onMediaSelect }: MediaUploadProps) {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="text-white border-white text-xs"
+                            className=" border-white text-xs"
                             onClick={(e) =>
                               handleSelectMedia(
                                 item.key,
@@ -514,7 +514,7 @@ export function MediaUpload({ settings, onMediaSelect }: MediaUploadProps) {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="text-white border-white text-xs"
+                            className=" border-white text-xs"
                             onClick={(e) =>
                               handleSelectMedia(
                                 item.key,
@@ -539,7 +539,7 @@ export function MediaUpload({ settings, onMediaSelect }: MediaUploadProps) {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="text-white border-white text-xs"
+                            className=" border-white text-xs"
                             onClick={(e) =>
                               handleSelectMedia(item.key, item.url, "intro", e)
                             }
@@ -556,7 +556,7 @@ export function MediaUpload({ settings, onMediaSelect }: MediaUploadProps) {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="text-white border-white text-xs"
+                            className=" border-white text-xs"
                             onClick={(e) =>
                               handleSelectMedia(item.key, item.url, "win", e)
                             }
