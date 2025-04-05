@@ -25,6 +25,10 @@ export interface DNAGameSettings {
   spinSpeed: number;
   winTimeout: number;
   lostTimeout: number;
+  // Thêm các trường mới cho media
+  backgroundImage: string;
+  introVideo: string;
+  winVideo: string;
 }
 
 // Default settings in case nothing is found in the sheet
@@ -52,6 +56,10 @@ const DEFAULT_SETTINGS: DNAGameSettings = {
   spinSpeed: 0.002,
   winTimeout: 3000,
   lostTimeout: 3000,
+  // Giá trị mặc định cho các trường media
+  backgroundImage: "",
+  introVideo: "",
+  winVideo: "",
 };
 
 /**
@@ -135,6 +143,13 @@ export const getGameSettings = async (): Promise<DNAGameSettings> => {
           key === "lostTimeout"
         ) {
           settings[key as keyof DNAGameSettings] = Number(value);
+        } else if (
+          key === "backgroundImage" ||
+          key === "introVideo" ||
+          key === "winVideo"
+        ) {
+          // Xử lý các trường media
+          settings[key as keyof DNAGameSettings] = value;
         }
       } catch (error) {
         console.error(`Error parsing setting ${key}:`, error);

@@ -17,7 +17,7 @@ import { Switch } from "@/components/ui/switch";
 import { Loader2, Save, RefreshCw } from "lucide-react";
 import { DNAGameSettings } from "@/lib/settingsService";
 import { Separator } from "@/components/ui/separator";
-import { BackgroundUpload } from "@/components/settings/background-upload";
+import { MediaUpload } from "@/components/settings/media-upload";
 import { toast } from "sonner";
 
 export function SettingsForm() {
@@ -173,8 +173,36 @@ export function SettingsForm() {
         return { ...prev, [key]: isNaN(numValue) ? 0 : numValue };
       }
 
+      // Handle string values (đặc biệt là các đường dẫn media)
+      if (
+        key === "backgroundImage" ||
+        key === "introVideo" ||
+        key === "winVideo"
+      ) {
+        return { ...prev, [key]: value };
+      }
+
       return { ...prev, [key]: value };
     });
+  };
+
+  const handleMediaSelect = (
+    purpose: "background" | "intro" | "win",
+    url: string
+  ) => {
+    if (!settings) return;
+
+    switch (purpose) {
+      case "background":
+        handleInputChange("backgroundImage", url);
+        break;
+      case "intro":
+        handleInputChange("introVideo", url);
+        break;
+      case "win":
+        handleInputChange("winVideo", url);
+        break;
+    }
   };
 
   const formatWhitelistedPairs = (pairs: number[]): string => {
@@ -250,7 +278,7 @@ export function SettingsForm() {
             <TabsTrigger value="model">Mô hình DNA</TabsTrigger>
             <TabsTrigger value="game">Cấu hình trò chơi</TabsTrigger>
             <TabsTrigger value="animation">Hoạt ảnh & Hiệu ứng</TabsTrigger>
-            <TabsTrigger value="background">Hình nền</TabsTrigger>
+            <TabsTrigger value="media">Media</TabsTrigger>
           </TabsList>
 
           <TabsContent value="model" className="space-y-4">
@@ -579,8 +607,11 @@ export function SettingsForm() {
               </div>
             </div>
           </TabsContent>
-          <TabsContent value="background" className="space-y-4">
-            <BackgroundUpload />
+          <TabsContent value="media" className="space-y-4">
+            <MediaUpload
+              settings={settings}
+              onMediaSelect={handleMediaSelect}
+            />
           </TabsContent>
         </Tabs>
       </CardContent>

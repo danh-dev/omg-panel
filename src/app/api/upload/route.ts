@@ -61,8 +61,32 @@ export async function POST(request: NextRequest) {
     // Chuyển File thành Buffer
     const buffer = Buffer.from(await file.arrayBuffer());
 
+    // Xác định thư mục lưu trữ dựa vào loại file
+    let folderPrefix = "";
+
+    // Lấy purpose từ formData (nếu có)
+    const purpose = (formData.get("purpose") as string) || "background";
+
+    if (file.type.startsWith("image/")) {
+      folderPrefix = "backgrounds/";
+    } else if (file.type.startsWith("video/")) {
+      // Phân loại video theo mục đích sử dụng
+      if (purpose === "intro") {
+        folderPrefix = "videos/intro/";
+      } else if (purpose === "win") {
+        folderPrefix = "videos/win/";
+      } else {
+        folderPrefix = "videos/other/";
+      }
+    }
+
     // Upload lên R2
-    const uploadedFile = await uploadFileToR2(buffer, file.type, file.name);
+    const uploadedFile = await uploadFileToR2(
+      buffer,
+      file.type,
+      file.name,
+      folderPrefix
+    );
 
     return NextResponse.json({
       success: true,
@@ -81,18 +105,18 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * GET endpoint để lấy danh sách các hình nền
+ * GET endpoint để lấy danh sách các media đã upload
  */
 export async function GET() {
   try {
-    const backgrounds = await listBackgroundImages();
+    const media = await listBackgroundImages();
 
     return NextResponse.json({
       success: true,
-      data: backgrounds,
+      data: media,
     });
   } catch (error) {
-    console.error("Error listing backgrounds:", error);
+    console.error("Error listing media:", error);
     return NextResponse.json(
       {
         success: false,
