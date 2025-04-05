@@ -31,6 +31,11 @@ export async function GET(request: NextRequest) {
       spinSpeed: settings.spinSpeed,
       winTimeout: settings.winTimeout,
       lostTimeout: settings.lostTimeout,
+      matchRatioThreshold: settings.matchRatioThreshold,
+      backgroundImage: settings.backgroundImage,
+      introVideo: settings.introVideo,
+      winVideo: settings.winVideo,
+      textureImage: settings.textureImage,
     };
 
     // Return with CORS headers to allow fetching from game domain

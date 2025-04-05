@@ -167,7 +167,8 @@ export function SettingsForm() {
         key === "rotationSpeed" ||
         key === "spinSpeed" ||
         key === "winTimeout" ||
-        key === "lostTimeout"
+        key === "lostTimeout" ||
+        key === "matchRatioThreshold"
       ) {
         const numValue = parseFloat(value);
         return { ...prev, [key]: isNaN(numValue) ? 0 : numValue };
@@ -177,7 +178,8 @@ export function SettingsForm() {
       if (
         key === "backgroundImage" ||
         key === "introVideo" ||
-        key === "winVideo"
+        key === "winVideo" ||
+        key === "textureImage"
       ) {
         return { ...prev, [key]: value };
       }
@@ -187,7 +189,7 @@ export function SettingsForm() {
   };
 
   const handleMediaSelect = (
-    purpose: "background" | "intro" | "win",
+    purpose: "background" | "intro" | "win" | "texture",
     url: string
   ) => {
     if (!settings) return;
@@ -201,6 +203,9 @@ export function SettingsForm() {
         break;
       case "win":
         handleInputChange("winVideo", url);
+        break;
+      case "texture":
+        handleInputChange("textureImage", url);
         break;
     }
   };
@@ -412,20 +417,25 @@ export function SettingsForm() {
           <TabsContent value="game" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="gameTime">Thời gian chơi (giây)</Label>
+                <Label htmlFor="matchRatioThreshold">
+                  Ngưỡng so khớp (0-1)
+                </Label>
                 <Input
-                  id="gameTime"
+                  id="matchRatioThreshold"
                   type="number"
-                  value={settings.gameTime}
+                  step="0.01"
+                  min="0"
+                  max="1"
+                  value={settings.matchRatioThreshold}
                   onChange={(e) =>
-                    handleInputChange("gameTime", e.target.value)
+                    handleInputChange("matchRatioThreshold", e.target.value)
                   }
                 />
                 <p className="text-sm text-muted-foreground">
-                  Thời gian đếm ngược trong trò chơi (giây)
+                  Tỷ lệ so khớp tối thiểu để xác định người chơi chọn đúng (từ 0
+                  đến 1, ví dụ: 0.8 tương đương 80%)
                 </p>
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="targetPairCount">Số cặp đích cần nhớ</Label>
                 <Input
@@ -485,6 +495,20 @@ export function SettingsForm() {
                 />
                 <p className="text-sm text-muted-foreground">
                   Thời gian hiển thị màn hình thắng (mili giây)
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="gameTime">Thời gian chơi (giây)</Label>
+                <Input
+                  id="gameTime"
+                  type="number"
+                  value={settings.gameTime}
+                  onChange={(e) =>
+                    handleInputChange("gameTime", e.target.value)
+                  }
+                />
+                <p className="text-sm text-muted-foreground">
+                  Thời gian đếm ngược trong trò chơi (giây)
                 </p>
               </div>
             </div>
