@@ -154,6 +154,8 @@ export function SettingsForm() {
       if (
         key === "numPairs" ||
         key === "helixRadius" ||
+        key === "radiusX" ||
+        key === "radiusY" ||
         key === "helixHeight" ||
         key === "backboneWidth" ||
         key === "twists" ||
@@ -320,7 +322,34 @@ export function SettingsForm() {
                   Bán kính của mô hình helix
                 </p>
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="radiusX">Bán kính X (radiusX)</Label>
+                <Input
+                  id="radiusX"
+                  type="number"
+                  step="0.1"
+                  value={settings.radiusX}
+                  onChange={(e) => handleInputChange("radiusX", e.target.value)}
+                />
+                <p className="text-sm text-muted-foreground">
+                  Bán kính theo trục X của mô hình DNA (cho hình elip)
+                </p>
+              </div>
 
+              {/* Thêm trường radiusY */}
+              <div className="space-y-2">
+                <Label htmlFor="radiusY">Bán kính Y (radiusY)</Label>
+                <Input
+                  id="radiusY"
+                  type="number"
+                  step="0.1"
+                  value={settings.radiusY}
+                  onChange={(e) => handleInputChange("radiusY", e.target.value)}
+                />
+                <p className="text-sm text-muted-foreground">
+                  Bán kính theo trục Y của mô hình DNA (cho hình elip)
+                </p>
+              </div>
               <div className="space-y-2">
                 <Label htmlFor="helixHeight">
                   Chiều cao helix (helixHeight)

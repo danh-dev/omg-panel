@@ -4,6 +4,8 @@ import { getSpreadsheetDocument } from "./googleSheetsService";
 export interface DNAGameSettings {
   numPairs: number;
   helixRadius: number;
+  radiusX: number;
+  radiusY: number;
   helixHeight: number;
   backboneWidth: number;
   twists: number;
@@ -37,6 +39,8 @@ export interface DNAGameSettings {
 const DEFAULT_SETTINGS: DNAGameSettings = {
   numPairs: 21,
   helixRadius: 7.5,
+  radiusX: 0.5,
+  radiusY: 1.5,
   helixHeight: 38,
   backboneWidth: 0.6,
   twists: 1,
@@ -130,6 +134,8 @@ export const getGameSettings = async (): Promise<DNAGameSettings> => {
         } else if (
           key === "numPairs" ||
           key === "helixRadius" ||
+          key === "radiusX" ||
+          key === "radiusY" ||
           key === "helixHeight" ||
           key === "backboneWidth" ||
           key === "twists" ||

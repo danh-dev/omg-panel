@@ -14,6 +14,8 @@ export async function GET(request: NextRequest) {
     const formattedSettings = {
       numPairs: settings.numPairs,
       helixRadius: settings.helixRadius,
+      radiusX: settings.radiusX,
+      radiusY: settings.radiusY,
       helixHeight: settings.helixHeight,
       backboneWidth: settings.backboneWidth,
       twists: settings.twists,

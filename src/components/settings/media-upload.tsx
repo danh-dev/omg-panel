@@ -181,7 +181,7 @@ export function MediaUpload({ settings, onMediaSelect }: MediaUploadProps) {
     }
 
     // Kiểm tra kích thước file (20MB)
-    if (file.size > 20 * 1024 * 1024) {
+    if (file.size > 50 * 1024 * 1024) {
       toast.error("File quá lớn", {
         description: "Kích thước file tối đa là 20MB",
       });

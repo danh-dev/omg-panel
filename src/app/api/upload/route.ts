@@ -6,7 +6,7 @@ import {
 } from "@/lib/r2Service";
 
 // Kích thước tệp tối đa (20MB)
-const MAX_FILE_SIZE = 20 * 1024 * 1024;
+const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 // Các loại MIME được phép
 const ALLOWED_MIME_TYPES = [
